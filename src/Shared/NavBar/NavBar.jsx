@@ -1,6 +1,5 @@
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/images/logo/logo.webp";
-import { Button } from "@/components/ui/button";
 import { FaBell } from "react-icons/fa";
 import useAuth from "@/Hooks/useAuth";
 
@@ -24,8 +23,8 @@ const NavBar = () => {
               to={"/"}
               className={({ isActive }) =>
                 isActive
-                  ? "bg-[#00e699] p-2 rounded-lg font-medium transition-all ease-in-out hover:bg-[#2a5a42]"
-                  : "bg-transparent p-2 rounded-lg font-medium transition-all ease-in-out hover:bg-[#2a5a42]"
+                  ? "bg-[#00e699] p-2 rounded-lg font-medium transition-all ease-in-out hover:bg-[#2a5a42] hover:text-white"
+                  : "bg-transparent p-2 rounded-lg font-medium transition-all ease-in-out hover:bg-[#2a5a42] hover:text-white"
               }
             >
               HOME
@@ -34,7 +33,7 @@ const NavBar = () => {
           {/* Navlink div */}
 
           {/* Notification div */}
-          <div className="transform transition-transform duration-300 hover:-translate-y-2 rounded-full  p-3 bg-[#00e699] hover:bg-[#2a5a42] hover:cursor-pointer">
+          <div className="transform transition-transform duration-300 hover:-translate-y-2 rounded-full p-3 bg-[#00e699] hover:bg-[#2a5a42] hover:cursor-pointer hover:text-white">
               <FaBell></FaBell>
           </div>
           {/* Notification div */}
@@ -46,11 +45,11 @@ const NavBar = () => {
             ) : (
               <div className="transform transition-all duration-300 hover:-translate-y-2">
                 <NavLink
-                  to={"/"}
+                  to={"/login"}
                   className={({ isActive }) =>
                     isActive
-                      ? "bg-[#00e699] p-2 rounded-lg font-medium transition-all ease-in-out hover:bg-[#2a5a42]"
-                      : "bg-transparent p-2 rounded-lg font-medium transition-all ease-in-out hover:bg-[#2a5a42]"
+                      ? "bg-[#00e699] p-2 rounded-lg font-medium transition-all ease-in-out hover:bg-[#2a5a42] hover:text-white"
+                      : "bg-transparent p-2 rounded-lg font-medium transition-all ease-in-out hover:bg-[#2a5a42] hover:text-white"
                   }
                 >
                   LOGIN

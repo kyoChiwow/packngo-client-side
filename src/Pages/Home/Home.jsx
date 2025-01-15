@@ -1,7 +1,13 @@
+import Banner from "@/Shared/Banner/Banner";
+
 const Home = () => {
     return (
         <div>
-            <h1>this is home page</h1>
+            {/* Banner div here */}
+            <div>
+                <Banner></Banner>
+            </div>
+            {/* Banner div here */}
         </div>
     );
 };
