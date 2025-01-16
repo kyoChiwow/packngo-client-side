@@ -10,7 +10,9 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    
+  }
   return (
     <div className="pt-[96px] bg-[#00e699] bg-opacity-10 min-h-screen">
       <div className="max-w-[90%] lg:max-w-[80%] mx-auto bg-[#2a5a42] bg-opacity-10 min-h-screen flex flex-col-reverse lg:flex-row items-center justify-between px-8 xl:px-[150px] py-2">
