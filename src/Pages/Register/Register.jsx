@@ -1,18 +1,57 @@
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
-import loginAnimation from "../../assets/lottieAnimations/login.json";
+import registerAnimation from "../../assets/lottieAnimations/register.json";
 import googleAnimation from "../../assets/lottieAnimations/google.json";
 import Lottie from "lottie-react";
+import useAuth from "@/Hooks/useAuth";
+import useAxiosPublic from "@/Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
+
+  const { registerEmail, updateUserProfile } = useAuth();
+  const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
+
   const onSubmit = (data) => {
-    
-  }
+    registerEmail(data.registerEmail, data.registerPassword).then((res) => {
+      const loggedUser = res.user;
+      console.log(loggedUser);
+      updateUserProfile(data.registerName, data.registerPhoto)
+        .then(() => {
+          const userInfo = {
+            name: data.registerName,
+            email: data.registerEmail,
+            role: data.category,
+          };
+          axiosPublic.post("/users", userInfo).then((res) => {
+            if (res.data.insertedId) {
+              reset();
+              Swal.fire({
+                title: "Good job!",
+                text: "You have created your account!",
+                icon: "success",
+              });
+              navigate("/");
+            }
+          });
+        })
+        .catch((err) => {
+          Swal.fire({
+            title: "Error!",
+            text: `Something went wrong${err.message}`,
+            icon: "error",
+          });
+        });
+    });
+  };
   return (
     <div className="pt-[96px] bg-[#00e699] bg-opacity-10 min-h-screen">
       <div className="max-w-[90%] lg:max-w-[80%] mx-auto bg-[#2a5a42] bg-opacity-10 min-h-screen flex flex-col-reverse lg:flex-row items-center justify-between px-8 xl:px-[150px] py-2">
@@ -176,6 +215,17 @@ const Register = () => {
             </Button>
           </div>
           {/* Google Login div */}
+
+          {/* Already have an account div */}
+          <div className="mt-4">
+            <p>
+              Already have an account?{" "}
+              <NavLink to={"/login"}>
+                <span className="text-[#38a581] font-bold">Login Here!</span>
+              </NavLink>{" "}
+            </p>
+          </div>
+          {/* Already have an account div */}
         </div>
         {/* Form div here */}
 
@@ -183,7 +233,7 @@ const Register = () => {
         <div className="w-[48%]">
           <Lottie
             className="lg:w-[350px] xl:w-[600px]"
-            animationData={loginAnimation}
+            animationData={registerAnimation}
           ></Lottie>
         </div>
         {/* Animation div here */}
