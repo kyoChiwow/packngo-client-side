@@ -31,7 +31,7 @@ const Banner = () => {
         <div className="flex justify-center mt-4">
           <div className="flex w-full max-w-xl items-center space-x-2">
             <Input type="text" />
-            <Button className="bg-[#00e699] text-black rounded-lg font-medium transition-all ease-in-out hover:bg-[#2a5a42] hover:text-white hover:-translate-y-2" type="submit">Submit</Button>
+            <Button className="bg-[#00e699] text-black rounded-lg font-medium transition-all ease-in-out hover:bg-[#2a5a42] hover:text-white hover:-translate-y-2" type="submit">Search</Button>
           </div>
         </div>
         {/* Search bar div */}

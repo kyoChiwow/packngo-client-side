@@ -2,9 +2,27 @@ import { NavLink } from "react-router-dom";
 import logo from "../../assets/images/logo/logo.webp";
 import { FaBell } from "react-icons/fa";
 import useAuth from "@/Hooks/useAuth";
+import {
+  LifeBuoy,
+  LogOut,
+} from "lucide-react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 const NavBar = () => {
-  const { user } = useAuth();
+  const { user, logOut } = useAuth();
+
+  const handleLogOut = () => {
+    logOut();
+  }
+  
   return (
     <div className="fixed z-10 bg-[#2a5a42] bg-opacity-50 w-full backdrop-blur-sm">
       {/* Navbar wrapping div */}
@@ -34,14 +52,32 @@ const NavBar = () => {
 
           {/* Notification div */}
           <div className="transform transition-transform duration-300 hover:-translate-y-2 rounded-full p-3 bg-[#00e699] hover:bg-[#2a5a42] hover:cursor-pointer hover:text-white">
-              <FaBell></FaBell>
+            <FaBell></FaBell>
           </div>
           {/* Notification div */}
 
           {/* Login or avatar dropdown div */}
           <div>
             {user ? (
-              ""
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild className="rounded-full hover:cursor-pointer transform transition-transform duration-300 hover:scale-125">
+                  <img className="w-[40px] h-[40px] object-cover" src={user.photoURL} alt="" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56">
+                  <DropdownMenuLabel>{user.displayName}</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <LifeBuoy />
+                    <NavLink>Dashboard</NavLink>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <LogOut />
+                    <button onClick={handleLogOut}>Log out</button>
+                    <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             ) : (
               <div className="transform transition-all duration-300 hover:-translate-y-2">
                 <NavLink
