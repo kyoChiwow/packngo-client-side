@@ -68,7 +68,7 @@ const NavBar = () => {
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>
                     <LifeBuoy />
-                    <NavLink>Dashboard</NavLink>
+                    <NavLink to={"/dashboard"}>Dashboard</NavLink>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>
