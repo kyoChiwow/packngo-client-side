@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/logo/logo.webp";
 import { FaBell } from "react-icons/fa";
 import useAuth from "@/Hooks/useAuth";
@@ -15,9 +15,29 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import useAdmin from "@/Hooks/useAdmin";
+import useDeliveryMan from "@/Hooks/useDeliveryMan";
+import useGeneralUser from "@/Hooks/useGeneralUser";
 
 const NavBar = () => {
   const { user, logOut } = useAuth();
+  const [isAdmin] = useAdmin();
+  const [isDeliveryMan] = useDeliveryMan();
+  const [isGeneralUser] = useGeneralUser();
+
+  const navigate = useNavigate();
+
+  const handleDashboardRedirect = () => {
+    if (isAdmin) {
+      navigate("/dashboard/statistics")
+    }
+    else if (isGeneralUser) {
+      navigate("/dashboard/my-profile")
+    }
+    else if (isDeliveryMan) {
+      navigate("/dashboard/my-delivery")
+    }
+  }
 
   const handleLogOut = () => {
     logOut();
@@ -68,7 +88,7 @@ const NavBar = () => {
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>
                     <LifeBuoy />
-                    <NavLink to={"/dashboard"}>Dashboard</NavLink>
+                    <button onClick={handleDashboardRedirect}>Dashboard</button>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>

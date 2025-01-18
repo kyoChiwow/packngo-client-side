@@ -7,20 +7,34 @@ import { IoIosStats } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
 import logo from "../../assets/images/logo/pack-n-go-logo-3_1_orig.png";
 import PropTypes from "prop-types";
-import { ChevronFirst, ChevronLast, MoreVertical } from "lucide-react";
+import {
+  ChevronFirst,
+  ChevronLast,
+  LogOut,
+  MoreVertical,
+} from "lucide-react";
 import useAuth from "@/Hooks/useAuth";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const menuItems = {
   generalUser: [
+    { title: "My Profile", icon: <CgProfile />, url: "/dashboard/my-profile" },
+    { title: "My Percels", icon: <FaBox />, url: "/dashboard/my-percels" },
     {
       title: "Book A Percel",
       icon: <SlCalender />,
       url: "/dashboard/book-percel",
     },
-    { title: "My Percels", icon: <FaBox />, url: "/dashboard/my-percels" },
-    { title: "My Profile", icon: <CgProfile />, url: "/dashboard/my-profile" },
   ],
   deliveryMan: [
     {
@@ -31,6 +45,7 @@ const menuItems = {
     { title: "My Reviews", icon: <MdReviews />, url: "/dashboard/my-reviews" },
   ],
   admin: [
+    { title: "Statistics", icon: <IoIosStats />, url: "/dashboard/statistics" },
     {
       title: "All Delivery Mens",
       icon: <MdDeliveryDining />,
@@ -38,15 +53,18 @@ const menuItems = {
     },
     { title: "All Percels", icon: <FaBox />, url: "/dashboard/all-percels" },
     { title: "All Users", icon: <FaUser />, url: "/dashboard/all-users" },
-    { title: "Statistics", icon: <IoIosStats />, url: "/dashboard/statistics" },
   ],
 };
 
 const Sidebar = ({ role }) => {
   const items = menuItems[role] || [];
-  const { user } = useAuth();
+  const { user, logOut } = useAuth();
 
   const [expandable, setExpandable] = useState(true);
+
+  const handleLogOut = () => {
+    logOut();
+  };
 
   return (
     <div>
@@ -67,7 +85,7 @@ const Sidebar = ({ role }) => {
               </div>
             </div>
 
-            <div className="ml-14">
+            <div>
               <button
                 onClick={() => setExpandable((current) => !current)}
                 className="p-1 rounded-lg bg-gray-50 hover:bg-gray-100"
@@ -77,19 +95,32 @@ const Sidebar = ({ role }) => {
             </div>
           </div>
 
-          <ul className="flex-1 px-3 py-3">
+          <ul className="flex-1 px-[15px] py-3">
             {items.map((item, idx) => (
-              <li key={idx}>
+              <li key={idx} className="relative group">
                 <NavLink
                   to={item.url}
                   className={({ isActive }) =>
                     isActive
-                      ? "flex items-center gap-3 p-2 font-medium hover:bg-gray-200 rounded-md bg-[#2a5a42] bg-opacity-30"
-                      : "flex items-center gap-3 p-2 font-medium hover:bg-gray-200 rounded-md"
+                      ? "flex items-center gap-3 p-2 font-medium hover:bg-[#2a5a42] hover:bg-opacity-20 rounded-md bg-[#2a5a42] bg-opacity-30 mt-4 transition-all"
+                      : "flex items-center gap-3 p-2 font-medium hover:bg-[#2a5a42] hover:bg-opacity-20 rounded-md mt-4 transition-all"
                   }
                 >
                   {item.icon}
-                  <span>{item.title}</span>
+                  <span
+                    className={`overflow-hidden transition-all ${
+                      expandable ? "visible" : "hidden"
+                    }`}
+                  >
+                    {item.title}
+                  </span>
+                  {!expandable && (
+                    <div
+                      className={`absolute left-full rounded-md px-2 py-1 ml-6 bg-indigo-100 text-indigo-800 text-sm invisible opacity-20 -translate-x-3 transition-all group-hover:visible group-hover:opacity-100 group-hover:translate-x-0 whitespace-nowrap`}
+                    >
+                      {item.title}
+                    </div>
+                  )}
                 </NavLink>
               </li>
             ))}
@@ -112,7 +143,27 @@ const Sidebar = ({ role }) => {
               </div>
 
               <div>
-                <MoreVertical size={20} />
+                <DropdownMenu>
+                  <DropdownMenuTrigger
+                    asChild
+                    className="rounded-full hover:cursor-pointer transform transition-transform duration-300 hover:scale-125"
+                  >
+                    <MoreVertical size={20} />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56">
+                    <DropdownMenuLabel>{user.displayName}</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>
+                      <NavLink to={"/"}>Go Back Home</NavLink>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={handleLogOut} className="hover:cursor-pointer">
+                      <LogOut />
+                      <button>Log out</button>
+                      <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             </div>
           </div>
