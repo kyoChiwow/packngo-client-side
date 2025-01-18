@@ -1,7 +1,7 @@
 const MyPercels = () => {
     return (
         <div>
-            
+            mypercel
         </div>
     );
 };
