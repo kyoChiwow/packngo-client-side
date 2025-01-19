@@ -7,12 +7,7 @@ import { IoIosStats } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
 import logo from "../../assets/images/logo/pack-n-go-logo-3_1_orig.png";
 import PropTypes from "prop-types";
-import {
-  ChevronFirst,
-  ChevronLast,
-  LogOut,
-  MoreVertical,
-} from "lucide-react";
+import { ChevronFirst, ChevronLast, LogOut, MoreVertical } from "lucide-react";
 import useAuth from "@/Hooks/useAuth";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
@@ -154,10 +149,13 @@ const Sidebar = ({ role }) => {
                     <DropdownMenuLabel>{user.displayName}</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>
-                      <NavLink to={"/"}>Go Back Home</NavLink>
+                      <NavLink className={"w-full"} to={"/"}>Go Back Home</NavLink>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={handleLogOut} className="hover:cursor-pointer">
+                    <DropdownMenuItem
+                      onClick={handleLogOut}
+                      className="hover:cursor-pointer"
+                    >
                       <LogOut />
                       <button>Log out</button>
                       <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>

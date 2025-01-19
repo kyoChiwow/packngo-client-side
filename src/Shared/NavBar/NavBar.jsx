@@ -48,8 +48,9 @@ const NavBar = () => {
       {/* Navbar wrapping div */}
       <div className="max-w-[90%] lg:max-w-[80%] mx-auto flex justify-between items-center py-2 z-20">
         {/* Image div */}
-        <NavLink to={"/"}>
+        <NavLink className={"flex items-center gap-2"} to={"/"}>
           <img className="w-[80px] h-[80px] rounded-full" src={logo} alt="" />
+          <h1 className="text-3xl hidden md:block">PackNGO</h1>
         </NavLink>
         {/* Image div */}
 
@@ -88,12 +89,12 @@ const NavBar = () => {
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>
                     <LifeBuoy />
-                    <button onClick={handleDashboardRedirect}>Dashboard</button>
+                    <button className="w-full text-start" onClick={handleDashboardRedirect}>Dashboard</button>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>
                     <LogOut />
-                    <button onClick={handleLogOut}>Log out</button>
+                    <button className="w-full text-start" onClick={handleLogOut}>Log out</button>
                     <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
