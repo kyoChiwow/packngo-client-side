@@ -63,8 +63,8 @@ const Sidebar = ({ role }) => {
 
   return (
     <div>
-      <aside className="h-screen">
-        <nav className="h-full flex flex-col bg-[#00e699] bg-opacity-40 border-r shadow-sm">
+      <aside className="min-h-screen">
+        <nav className="h-screen flex flex-col  border-r shadow-sm">
           <div className="p-4 pb-2 flex justify-between items-center border-b">
             <div
               className={`overflow-hidden transition-all flex items-center gap-2 ${
@@ -90,7 +90,7 @@ const Sidebar = ({ role }) => {
             </div>
           </div>
 
-          <ul className="flex-1 px-[15px] py-3">
+          <ul className="flex-grow px-[15px] py-3">
             {items.map((item, idx) => (
               <li key={idx} className="relative group">
                 <NavLink
@@ -123,7 +123,7 @@ const Sidebar = ({ role }) => {
 
           <div className="border-t flex p-3">
             <img
-              className="w-10 h-10 rounded-lg"
+              className="w-10 h-10 rounded-lg object-cover"
               src={user.photoURL}
               alt={user.displayName}
             />

@@ -1,7 +1,7 @@
 const AllDeliveryMens = () => {
     return (
         <div>
-            
+            asd
         </div>
     );
 };
