@@ -17,6 +17,7 @@ import Statistics from "@/Pages/Dashboard/AdminPages/Statistics/Statistics";
 import DeliveryRoute from "./DeliveryRoute";
 import MyDeliveryList from "@/Pages/Dashboard/DeliveryManPages/MyDeliveryList/MyDeliveryList";
 import MyReviews from "@/Pages/Dashboard/DeliveryManPages/MyReviews/MyReviews";
+import UpdateParcel from "@/Pages/Dashboard/GeneralUserPages/UpdateParcel/UpdateParcel";
 
 export const router = createBrowserRouter([
   {
@@ -104,6 +105,16 @@ export const router = createBrowserRouter([
             <MyProfile></MyProfile>
           </UserRoute>
         ),
+      },
+      {
+        path: "update-percels/:id",
+        element: (
+          <UserRoute>
+            <UpdateParcel></UpdateParcel>
+          </UserRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/parcels/${params.id}`),
       },
       // General User Routes here
 

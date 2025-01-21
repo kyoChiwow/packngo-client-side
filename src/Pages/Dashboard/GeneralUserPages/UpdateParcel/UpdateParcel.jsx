@@ -3,12 +3,11 @@ import useAuth from "@/Hooks/useAuth";
 import useAxiosSecure from "@/Hooks/useAxiosSecure";
 import Title from "@/Shared/Title/Title";
 import moment from "moment";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
-const BookAPercel = () => {
+const UpdateParcel = () => {
   const {
     register,
     handleSubmit,
@@ -17,10 +16,30 @@ const BookAPercel = () => {
     formState: { errors },
   } = useForm();
 
-  const [price, setPrice] = useState(0);
+  const {
+    _id,
+    bookingName,
+    bookingEmail,
+    bookingPhone,
+    bookingPercelType,
+    bookingWeight,
+    bookingReceiverName,
+    bookingReceiverNumber,
+    bookingReceiverAddress,
+    bookingDeliveryDate,
+    bookingAddressLatitute,
+    bookingAddressLongitude,
+  } = useLoaderData();
   const { user } = useAuth();
+  const [price, setPrice] = useState(0);
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (bookingWeight) {
+      setPrice(calculatePrice(Number(bookingWeight)));
+    }
+  }, [bookingWeight]);
 
   const percelWeight = watch("bookingWeight");
 
@@ -38,40 +57,20 @@ const BookAPercel = () => {
 
   const onSubmit = (data) => {
     const finalData = {
-      ...data,
-      price,
-      status: "pending",
-      createdAt: moment().format("YYYY-MM-DD HH:mm:ss")
-    };
-    // Sending the data to the backend
-    axiosSecure
-      .post("/parcels", finalData)
-      .then(() => {
-        Swal.fire({
-          title: "Success!",
-          text: "You have successfully booked a parcel!",
-          icon: "success",
-          willClose: () => {
-            reset();
-            navigate("/dashboard/my-percels");
-          },
-        });
-      })
-      .catch((err) => {
-        Swal.fire({
-          title: "Error!",
-          text: err.message,
-          icon: "error",
-        });
-      });
+          ...data,
+          price,
+          status: "pending",
+          createdAt: moment().format("YYYY-MM-DD HH:mm:ss")
+        };
+        console.log(finalData);
   };
 
   return (
     <div>
       <header>
         <Title
-          mainTitle="Book a percel"
-          subTitle="Please fill out the form below to book a percel"
+          mainTitle="Update Booking"
+          subTitle="Please check the form below if you want to update your booking"
         ></Title>
       </header>
 
@@ -90,6 +89,7 @@ const BookAPercel = () => {
                     type="text"
                     className="border rounded-md py-1 px-2 w-full"
                     placeholder="Enter Your Name"
+                    defaultValue={bookingName}
                     name="bookingName"
                     {...register("bookingName", { required: true })}
                   />
@@ -110,7 +110,7 @@ const BookAPercel = () => {
                     type="email"
                     className="border rounded-md py-1 px-2 w-full"
                     placeholder="Enter Your Email"
-                    value={user.email}
+                    value={bookingEmail}
                     name="bookingEmail"
                     {...register("bookingEmail", { required: true })}
                   />
@@ -131,6 +131,7 @@ const BookAPercel = () => {
                     type="number"
                     className="border rounded-md py-1 px-2 w-full"
                     placeholder="Enter Your Phone Number"
+                    defaultValue={bookingPhone}
                     name="bookingPhone"
                     {...register("bookingPhone", { required: true })}
                   />
@@ -151,6 +152,7 @@ const BookAPercel = () => {
                     type="text"
                     className="border rounded-md py-1 px-2 w-full"
                     placeholder="Enter Your Percel Type"
+                    defaultValue={bookingPercelType}
                     name="bookingPercelType"
                     {...register("bookingPercelType", { required: true })}
                   />
@@ -173,6 +175,7 @@ const BookAPercel = () => {
                     min="0.1"
                     className="border rounded-md py-1 px-2 w-full"
                     placeholder="Enter Your Percel Weight"
+                    defaultValue={bookingWeight}
                     name="bookingWeight"
                     {...register("bookingWeight", {
                       required: true,
@@ -196,6 +199,7 @@ const BookAPercel = () => {
                     type="text"
                     className="border rounded-md py-1 px-2 w-full"
                     placeholder="Enter Receiver's Name"
+                    defaultValue={bookingReceiverName}
                     name="bookingReceiverName"
                     {...register("bookingReceiverName", { required: true })}
                   />
@@ -218,6 +222,7 @@ const BookAPercel = () => {
                     type="number"
                     className="border rounded-md py-1 px-2 w-full"
                     placeholder="Enter Receiver's Phone Number"
+                    defaultValue={bookingReceiverNumber}
                     name="bookingReceiverNumber"
                     {...register("bookingReceiverNumber", { required: true })}
                   />
@@ -238,6 +243,7 @@ const BookAPercel = () => {
                     type="text"
                     className="border rounded-md py-1 px-2 w-full"
                     placeholder="Enter Receiver's Address"
+                    defaultValue={bookingReceiverAddress}
                     name="bookingReceiverAddress"
                     {...register("bookingReceiverAddress", { required: true })}
                   />
@@ -258,6 +264,7 @@ const BookAPercel = () => {
                     type="date"
                     className="border rounded-md py-1 px-2 w-full"
                     placeholder="Enter Requested Delivery Date"
+                    defaultValue={bookingDeliveryDate}
                     name="bookingDeliveryDate"
                     {...register("bookingDeliveryDate", { required: true })}
                   />
@@ -280,6 +287,7 @@ const BookAPercel = () => {
                     min="-90"
                     max="90"
                     className="border rounded-md py-1 px-2 w-full"
+                    defaultValue={bookingAddressLatitute}
                     placeholder="Enter Receiver's Latitude (e.g., 21.121365496)"
                     name="bookingAddressLatitute"
                     {...register("bookingAddressLatitute", {
@@ -306,6 +314,7 @@ const BookAPercel = () => {
                     min="-180"
                     max="180"
                     className="border rounded-md py-1 px-2 w-full"
+                    defaultValue={bookingAddressLongitude}
                     placeholder="Enter Receivers Longitude (e.g., 21.121365496)"
                     name="bookingAddressLongitude"
                     {...register("bookingAddressLongitude", {
@@ -350,4 +359,4 @@ const BookAPercel = () => {
   );
 };
 
-export default BookAPercel;
+export default UpdateParcel;

@@ -87,12 +87,12 @@ const DashboardLayout = () => {
   const items = menuItems[role] || [];
 
   return (
-    <div className="flex">
+    <div className="flex overflow-y-hidden">
       <div className="bg-[#00e699] bg-opacity-40 flex flex-col justify-between">
         <div>
           <div>
             <aside className="min-h-screen">
-              <nav className="h-screen flex flex-col border-r shadow-sm">
+              <nav className="min-h-screen flex flex-col border-r shadow-sm">
                 <div className="p-4 pb-2 flex justify-between items-center border-b">
                   <div
                     className={`overflow-hidden transition-all flex items-center gap-2 ${
@@ -152,7 +152,7 @@ const DashboardLayout = () => {
             </aside>
           </div>
         </div>
-        <div className="border-t flex border p-3">
+        <div className="border-t flex p-3">
           <img
             className="w-10 h-10 rounded-lg object-cover"
             src={user.photoURL}
