@@ -6,13 +6,13 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLoaderData, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const UpdateParcel = () => {
   const {
     register,
     handleSubmit,
     watch,
-    reset,
     formState: { errors },
   } = useForm();
 
@@ -30,6 +30,7 @@ const UpdateParcel = () => {
     bookingAddressLatitute,
     bookingAddressLongitude,
   } = useLoaderData();
+  
   const { user } = useAuth();
   const [price, setPrice] = useState(0);
   const axiosSecure = useAxiosSecure();
@@ -55,14 +56,26 @@ const UpdateParcel = () => {
     if (calculatedPrice !== price) setPrice(calculatedPrice);
   }
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const finalData = {
           ...data,
           price,
-          status: "pending",
           createdAt: moment().format("YYYY-MM-DD HH:mm:ss")
         };
-        console.log(finalData);
+        
+        // Update the data in backend
+        const res = await axiosSecure.patch(`/parcels/${_id}`, finalData);
+        if (res.data.modifiedCount > 0) {
+            Swal.fire({
+                title: "Good job!",
+                text: `${data.bookingName}, Your parcel is updated in the booking`,
+                icon: "success",
+                willClose: () => {
+                    navigate("/dashboard/my-percels")
+                }
+              });
+        }
+
   };
 
   return (
