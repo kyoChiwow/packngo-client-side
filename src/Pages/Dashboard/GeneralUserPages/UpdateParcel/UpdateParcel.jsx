@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import useAuth from "@/Hooks/useAuth";
 import useAxiosSecure from "@/Hooks/useAxiosSecure";
 import Title from "@/Shared/Title/Title";
 import moment from "moment";
@@ -30,8 +29,7 @@ const UpdateParcel = () => {
     bookingAddressLatitute,
     bookingAddressLongitude,
   } = useLoaderData();
-  
-  const { user } = useAuth();
+
   const [price, setPrice] = useState(0);
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();

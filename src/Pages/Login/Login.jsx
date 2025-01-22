@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import useAuth from "@/Hooks/useAuth";
 import Lottie from "lottie-react";
 import { useForm } from "react-hook-form";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import googleAnimation from "../../assets/lottieAnimations/google.json";
 import Swal from "sweetalert2";
 import loginAnimation from "../../assets/lottieAnimations/login.json";
@@ -16,6 +16,9 @@ const Login = () => {
 
   const { loginEmail } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
 
   const onSubmit = (data) => {
     loginEmail(data.loginEmail, data.loginPassword)
@@ -27,7 +30,7 @@ const Login = () => {
           text: "You have successfully logged into your account!",
           icon: "success",
         });
-        navigate("/");
+        navigate(from, { replace: true });
       })
       .catch((err) => {
         Swal.fire({

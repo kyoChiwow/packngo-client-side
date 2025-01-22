@@ -30,6 +30,8 @@ const Register = () => {
             name: data.registerName,
             email: data.registerEmail,
             role: data.category,
+            image: data.registerPhoto,
+            phone: data.registerPhone,
           };
           axiosPublic.post("/users", userInfo).then((res) => {
             if (res.data.insertedId) {
@@ -103,6 +105,26 @@ const Register = () => {
               )}
             </div>
             {/* Email div */}
+
+            {/* Phone Number div */}
+            <div className="mt-4 flex flex-col">
+              <div>
+                <p className="text-sm mb-1">Your Phone Number :</p>
+              </div>
+              <input
+                type="tel"
+                className="border rounded-md py-1 px-2 w-full"
+                placeholder="Enter Your Phone Number"
+                name="registerPhone"
+                {...register("registerPhone", { required: true })}
+              />
+              {errors.registerPhone && (
+                <span className="text-red-600 mt-2 ml-1">
+                  Your Phone Number is required
+                </span>
+              )}
+            </div>
+            {/* Phone Number div */}
 
             {/* Photo URL div */}
             <div className="mt-4 flex flex-col">
