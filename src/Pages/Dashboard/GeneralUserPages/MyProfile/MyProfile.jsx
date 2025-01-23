@@ -221,7 +221,7 @@ const MyProfile = () => {
                 className="bg-[#00e699] text-black rounded-md font-medium transition-all ease-in-out hover:bg-[#2a5a42] hover:text-white hover:-translate-y-2 w-full"
                 type="submit"
               >
-                Submit
+                Update
               </Button>
             </div>
             {/* Submit Button div */}
