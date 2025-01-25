@@ -90,11 +90,11 @@ const MyPercels = () => {
         ></Title>
       </header>
 
-      <main className="p-4">
+      <main className="max-w-[90%] mx-auto">
         {/* Table div */}
         <div>
           <div className="flex lg:w-[80%] mx-auto mb-4 justify-end">
-            <div className="bg-white w-[7%] rounded-sm text-center">
+            <div className="bg-white lg:w-[7%] rounded-sm text-center">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button className="bg-white text-black border-none shadow-none w-full hover:text-white">

@@ -85,7 +85,7 @@ const UpdateParcel = () => {
         ></Title>
       </header>
 
-      <main className="p-4">
+      <main className="max-w-[90%] mx-auto">
         <div className="lg:w-[80%] w-full flex flex-col items-center bg-white shadow-xl bg-opacity-60 p-4 rounded-md mx-auto">
           {/* form div here */}
           <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
