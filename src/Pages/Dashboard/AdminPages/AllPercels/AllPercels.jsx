@@ -19,7 +19,7 @@ import Loading from "@/Pages/Loading/Loading";
 const AllPercels = () => {
   const [parcels, loading, refetch] = useParcels(true);
   const [selectedParcel, setSelectedParcel] = useState(null);
-  const [searchResults, setSearchResults] = useState(parcels)
+  const [searchResults, setSearchResults] = useState(parcels);
   const [deliveryMen, setDeliveryMen] = useState([]);
   const [dateRange, setDateRange] = useState({ from: "", to: "" });
   const axiosSecure = useAxiosSecure();
@@ -62,7 +62,7 @@ const AllPercels = () => {
           to: dateRange.to,
         },
       });
-      setSearchResults(res.data)
+      setSearchResults(res.data);
       refetch();
     } catch (error) {
       console.error("Error during search:", error);
@@ -70,10 +70,10 @@ const AllPercels = () => {
   };
 
   useEffect(() => {
-    if(parcels) {
-        setSearchResults(parcels);
+    if (parcels) {
+      setSearchResults(parcels);
     }
-  }, [parcels])
+  }, [parcels]);
 
   if (loading) {
     return <Loading></Loading>;
@@ -89,24 +89,37 @@ const AllPercels = () => {
       </header>
       <main className="max-w-[90%] mx-auto">
         {/* Date Range Search */}
-        <div className="mb-4 flex space-x-4 items-center justify-end">
-          <input
-            type="date"
-            value={dateRange.from}
-            onChange={(e) =>
-              setDateRange({ ...dateRange, from: e.target.value })
-            }
-            className="rounded-md p-2 hover:cursor-pointer"
-          />
-          <input
-            type="date"
-            value={dateRange.to}
-            onChange={(e) => setDateRange({ ...dateRange, to: e.target.value })}
-            className="rounded-md p-2 hover:cursor-pointer"
-          />
-          <Button className="bg-[#00e699] bg-opacity-80" onClick={handleSearch}>
-            Search
-          </Button>
+        <div className="mb-4 flex flex-col md:flex-row gap-4 md:space-x-4 md:items-center md:justify-end">
+          <div>
+            <p className="font-bold mb-2">From :</p>
+            <input
+              type="date"
+              value={dateRange.from}
+              onChange={(e) =>
+                setDateRange({ ...dateRange, from: e.target.value })
+              }
+              className="rounded-md p-2 cursor-pointer"
+            />
+          </div>
+          <div>
+            <p className="font-bold mb-2">To : </p>
+            <input
+              type="date"
+              value={dateRange.to}
+              onChange={(e) =>
+                setDateRange({ ...dateRange, to: e.target.value })
+              }
+              className="rounded-md p-2 cursor-pointer"
+            />
+          </div>
+          <div className="md:mt-[29px]">
+            <Button
+              className="bg-[#00e699] bg-opacity-80"
+              onClick={handleSearch}
+            >
+              Search
+            </Button>
+          </div>
         </div>
 
         {/* Parcels Table */}
@@ -159,7 +172,7 @@ const AllPercels = () => {
                 Assign Delivery for {selectedParcel.bookingName}
               </h3>
               <select
-                className="select select-bordered w-full mt-4"
+                className="bg-gray-100 p-2 rounded-md cursor-pointer hover:bg-slate-200 duration-300 transition-all w-full mt-4"
                 value={selectedParcel.deliveryManId || ""}
                 onChange={(e) =>
                   setSelectedParcel({
@@ -179,7 +192,7 @@ const AllPercels = () => {
               </select>
               <input
                 type="date"
-                className="input input-bordered w-full mt-4"
+                className="bg-gray-100 p-2 rounded-md cursor-pointer hover:bg-slate-200 duration-300 transition-all w-full mt-4"
                 value={selectedParcel.deliveryDate || ""}
                 onChange={(e) =>
                   setSelectedParcel({
@@ -189,8 +202,8 @@ const AllPercels = () => {
                 }
               />
               <div className="mt-4 flex justify-end space-x-2">
-                <button
-                  className="btn btn-primary"
+                <Button
+                  className="bg-[#00e699] bg-opacity-80"
                   onClick={() =>
                     handleAssign(
                       selectedParcel.deliveryManId,
@@ -199,10 +212,13 @@ const AllPercels = () => {
                   }
                 >
                   Assign
-                </button>
-                <button className="btn" onClick={() => setSelectedParcel(null)}>
+                </Button>
+                <Button
+                  className="bg-[#00e699] bg-opacity-80"
+                  onClick={() => setSelectedParcel(null)}
+                >
                   Cancel
-                </button>
+                </Button>
               </div>
             </div>
           </div>
