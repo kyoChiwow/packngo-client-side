@@ -1,24 +1,24 @@
+import DashboardLayout from "@/Layouts/DashboardLayout";
 import MainLayout from "@/Layouts/MainLayout";
+import AllDeliveryMens from "@/Pages/Dashboard/AdminPages/AllDeliveryMens/AllDeliveryMens";
+import AllPercels from "@/Pages/Dashboard/AdminPages/AllPercels/AllPercels";
+import AllUsers from "@/Pages/Dashboard/AdminPages/AllUsers/AllUsers";
+import Statistics from "@/Pages/Dashboard/AdminPages/Statistics/Statistics";
+import MyDeliveryList from "@/Pages/Dashboard/DeliveryManPages/MyDeliveryList/MyDeliveryList";
+import MyReviews from "@/Pages/Dashboard/DeliveryManPages/MyReviews/MyReviews";
+import BookAPercel from "@/Pages/Dashboard/GeneralUserPages/BookAPercel/BookAPercel";
+import MyPercels from "@/Pages/Dashboard/GeneralUserPages/MyPercels/MyPercels";
+import MyProfile from "@/Pages/Dashboard/GeneralUserPages/MyProfile/MyProfile";
+import Payment from "@/Pages/Dashboard/GeneralUserPages/Payment/Payment";
+import UpdateParcel from "@/Pages/Dashboard/GeneralUserPages/UpdateParcel/UpdateParcel";
 import Home from "@/Pages/Home/Home";
 import Login from "@/Pages/Login/Login";
 import Register from "@/Pages/Register/Register";
 import { createBrowserRouter } from "react-router-dom";
-import PrivateRoute from "./PrivateRoute";
-import DashboardLayout from "@/Layouts/DashboardLayout";
-import BookAPercel from "@/Pages/Dashboard/GeneralUserPages/BookAPercel/BookAPercel";
-import UserRoute from "./UserRoute.jsx";
-import MyPercels from "@/Pages/Dashboard/GeneralUserPages/MyPercels/MyPercels";
-import MyProfile from "@/Pages/Dashboard/GeneralUserPages/MyProfile/MyProfile";
 import AdminRoute from "./AdminRoute";
-import AllDeliveryMens from "@/Pages/Dashboard/AdminPages/AllDeliveryMens/AllDeliveryMens";
-import AllUsers from "@/Pages/Dashboard/AdminPages/AllUsers/AllUsers";
-import AllPercels from "@/Pages/Dashboard/AdminPages/AllPercels/AllPercels";
-import Statistics from "@/Pages/Dashboard/AdminPages/Statistics/Statistics";
 import DeliveryRoute from "./DeliveryRoute";
-import MyDeliveryList from "@/Pages/Dashboard/DeliveryManPages/MyDeliveryList/MyDeliveryList";
-import MyReviews from "@/Pages/Dashboard/DeliveryManPages/MyReviews/MyReviews";
-import UpdateParcel from "@/Pages/Dashboard/GeneralUserPages/UpdateParcel/UpdateParcel";
-import Payment from "@/Pages/Dashboard/GeneralUserPages/Payment/Payment";
+import PrivateRoute from "./PrivateRoute";
+import UserRoute from "./UserRoute.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -115,7 +115,9 @@ export const router = createBrowserRouter([
           </UserRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/parcels/${params.id}`),
+          fetch(
+            `https://assignment-12-server-side-delta.vercel.app/parcels/${params.id}`
+          ),
       },
       {
         path: "payment",
