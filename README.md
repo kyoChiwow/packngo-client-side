@@ -4,8 +4,8 @@
 **Admin Password:** Admintest1  
 **GeneralUser Username:** general@user1.com 
 **GeneralUser Password:** Generaluser1  
-**Admin Username:** delivery@man1.com 
-**Admin Password:** Deliveryman1  
+**Delivery Man Username:** delivery@man1.com 
+**Delivery Man Password:** Deliveryman1  
 **Live Site URL:** [https://packngo-percel-management.web.app/](https://packngo-percel-management.web.app/)
 
 ## Features
