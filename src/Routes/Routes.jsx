@@ -18,6 +18,7 @@ import DeliveryRoute from "./DeliveryRoute";
 import MyDeliveryList from "@/Pages/Dashboard/DeliveryManPages/MyDeliveryList/MyDeliveryList";
 import MyReviews from "@/Pages/Dashboard/DeliveryManPages/MyReviews/MyReviews";
 import UpdateParcel from "@/Pages/Dashboard/GeneralUserPages/UpdateParcel/UpdateParcel";
+import Payment from "@/Pages/Dashboard/GeneralUserPages/Payment/Payment";
 
 export const router = createBrowserRouter([
   {
@@ -115,6 +116,14 @@ export const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(`http://localhost:5000/parcels/${params.id}`),
+      },
+      {
+        path: "payment",
+        element: (
+          <UserRoute>
+            <Payment></Payment>
+          </UserRoute>
+        ),
       },
       // General User Routes here
 

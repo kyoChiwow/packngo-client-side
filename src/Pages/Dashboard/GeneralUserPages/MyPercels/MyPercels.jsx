@@ -27,17 +27,30 @@ import useAxiosSecure from "@/Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useState } from "react";
 import useParcelStatus from "@/Hooks/useParcelStatus";
+import ReviewModal from "@/components/ReviewModal";
 
 const MyPercels = () => {
   const [parcels, loading, refetch] = useParcels();
   const [sortStatus, setSortStatus] = useState("");
-  const [sortedParcels, sortedLoading, sortedRefetch] = useParcelStatus(sortStatus);
+  const [sortedParcels, sortedLoading, sortedRefetch] =
+    useParcelStatus(sortStatus);
+  const [deliveryManId, setDeliveryManId] = useState(null);
+  const [isModalOpen, setModalOpen] = useState(false);
   const axiosSecure = useAxiosSecure();
+
+  const openModal = (deliveryManId) => {
+    setDeliveryManId(deliveryManId);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    setDeliveryManId(null);
+  };
 
   if (loading || sortedLoading) {
     return <Loading></Loading>;
   }
-  
 
   const handleSort = async (status) => {
     setSortStatus(status);
@@ -79,7 +92,7 @@ const MyPercels = () => {
     }
   };
 
-  const displayParcels = sortStatus ? sortedParcels: parcels;
+  const displayParcels = sortStatus ? sortedParcels : parcels;
 
   return (
     <div>
@@ -103,25 +116,37 @@ const MyPercels = () => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuItem className="p-0">
-                    <button onClick={() => handleSort("")} className="w-full text-left h-full p-2 transition-all duration-300 rounded-t-sm hover:bg-gray-100">
+                    <button
+                      onClick={() => handleSort("")}
+                      className="w-full text-left h-full p-2 transition-all duration-300 rounded-t-sm hover:bg-gray-100"
+                    >
                       All Parcels
                     </button>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem className="p-0">
-                    <button onClick={() => handleSort("pending")} className="w-full text-left h-full p-2 transition-all duration-300 hover:bg-gray-100">
+                    <button
+                      onClick={() => handleSort("pending")}
+                      className="w-full text-left h-full p-2 transition-all duration-300 hover:bg-gray-100"
+                    >
                       Pending
                     </button>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem className="p-0">
-                    <button onClick={() => handleSort("delivered")} className="w-full text-left h-full p-2 transition-all duration-300 hover:bg-gray-100">
+                    <button
+                      onClick={() => handleSort("delivered")}
+                      className="w-full text-left h-full p-2 transition-all duration-300 hover:bg-gray-100"
+                    >
                       Delivered
                     </button>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem className="p-0">
-                    <button onClick={() => handleSort("canceled")} className="w-full text-left h-full p-2 transition-all duration-300 hover:bg-gray-100 rounded-b-sm">
+                    <button
+                      onClick={() => handleSort("canceled")}
+                      className="w-full text-left h-full p-2 transition-all duration-300 hover:bg-gray-100 rounded-b-sm"
+                    >
                       Canceled
                     </button>
                   </DropdownMenuItem>
@@ -153,7 +178,7 @@ const MyPercels = () => {
                     <TableCell>{idx + 1}</TableCell>
                     <TableCell>{parcel.bookingPercelType}</TableCell>
                     <TableCell>{parcel.bookingDeliveryDate}</TableCell>
-                    <TableCell>{parcel.bookingDeliveryDate}</TableCell>
+                    <TableCell>{parcel.deliveryDate || "None Yet"}</TableCell>
                     <TableCell>{parcel.createdAt}</TableCell>
                     <TableCell>{parcel.status}</TableCell>
                     <TableCell>
@@ -181,14 +206,20 @@ const MyPercels = () => {
                       </Button>
                     </TableCell>
                     <TableCell>
-                      <Button className={"bg-[#00e699] bg-opacity-80"}>
+                      <Button
+                        onClick={() => openModal(parcel.deliveryManId)}
+                        disabled={parcel.status !== "delivered"}
+                        className={"bg-[#00e699] bg-opacity-80"}
+                      >
                         <MdOutlineRateReview />
                       </Button>
                     </TableCell>
                     <TableCell>
-                      <Button className={"bg-[#00e699] bg-opacity-80"}>
-                        <RiMoneyDollarCircleFill />
-                      </Button>
+                      <NavLink to={"/dashboard/payment"} state={{ price: parcel.price }}>
+                        <Button className={"bg-[#00e699] bg-opacity-80"}>
+                          <RiMoneyDollarCircleFill />
+                        </Button>
+                      </NavLink>
                     </TableCell>
                   </TableRow>
                 </TableBody>
@@ -196,9 +227,11 @@ const MyPercels = () => {
             </Table>
           </div>
         </div>
-
         {/* Table div */}
       </main>
+      {isModalOpen && (
+        <ReviewModal deliveryManId={deliveryManId} closeModal={closeModal} />
+      )}
     </div>
   );
 };

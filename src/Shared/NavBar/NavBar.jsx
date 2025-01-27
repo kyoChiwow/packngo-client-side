@@ -46,7 +46,7 @@ const NavBar = () => {
   return (
     <div className="fixed z-10 bg-[#2a5a42] bg-opacity-50 w-full backdrop-blur-sm">
       {/* Navbar wrapping div */}
-      <div className="max-w-[90%] lg:max-w-[80%] mx-auto flex justify-between items-center py-2 z-20">
+      <div className="max-w-[90%] mx-auto flex justify-between items-center py-2 z-20">
         {/* Image div */}
         <NavLink className={"flex items-center gap-2"} to={"/"}>
           <img className="w-[80px] h-[80px] rounded-full" src={logo} alt="" />
