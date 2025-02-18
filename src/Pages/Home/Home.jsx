@@ -2,6 +2,8 @@ import Accordion from "@/Shared/Accordion/Accordion";
 import Banner from "@/Shared/Banner/Banner";
 import DeliveryMenCard from "@/Shared/DeliveryMenCard/DeliveryMenCard";
 import Featured from "@/Shared/Featured/Featured";
+import HowItWorks from "@/Shared/HowItWorks/HowItWorks";
+import LatestBlogNews from "@/Shared/LatestBlogNews/LatestBlogNews";
 import StatsCard from "@/Shared/StatsCard/StatsCard"
 import Testimonials from "@/Shared/Testimonials/Testimonials";
 
@@ -39,6 +41,18 @@ const Home = () => {
                     <Testimonials></Testimonials>
                 </div>
                 {/* Testimonials Section */}
+
+                {/* How it works section */}
+                <div>
+                    <HowItWorks></HowItWorks>
+                </div>
+                {/* How it works section */}
+
+                {/* Latest Blog News Section */}
+                <div>
+                    <LatestBlogNews></LatestBlogNews>
+                </div>
+                {/* Latest Blog News Section */}
             </main>
         </div>
     );
