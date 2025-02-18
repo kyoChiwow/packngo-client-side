@@ -19,8 +19,13 @@ import AdminRoute from "./AdminRoute";
 import DeliveryRoute from "./DeliveryRoute";
 import PrivateRoute from "./PrivateRoute";
 import UserRoute from "./UserRoute.jsx";
+import Error404 from "@/Pages/Error404/Error404";
 
 export const router = createBrowserRouter([
+  {
+    path: "*",
+    element: <Error404></Error404>
+  },
   {
     path: "/",
     element: <MainLayout></MainLayout>,
