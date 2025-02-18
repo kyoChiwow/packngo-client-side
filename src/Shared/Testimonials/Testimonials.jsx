@@ -13,7 +13,7 @@ const testimonials = [
   },
   {
     name: "Emily Carter",
-    review: "Customer support was amazing. They solved my issue within minutes!",
+    review: "Customer support was amazing. They solved my issue within minute!",
     image: "https://randomuser.me/api/portraits/women/2.jpg"
   },
   {
