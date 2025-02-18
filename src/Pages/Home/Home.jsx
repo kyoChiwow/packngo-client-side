@@ -1,7 +1,9 @@
+import Accordion from "@/Shared/Accordion/Accordion";
 import Banner from "@/Shared/Banner/Banner";
 import DeliveryMenCard from "@/Shared/DeliveryMenCard/DeliveryMenCard";
 import Featured from "@/Shared/Featured/Featured";
 import StatsCard from "@/Shared/StatsCard/StatsCard"
+import Testimonials from "@/Shared/Testimonials/Testimonials";
 
 const Home = () => {
     return (
@@ -25,6 +27,18 @@ const Home = () => {
                     <DeliveryMenCard></DeliveryMenCard>
                 </div>
                 {/* Top delivery men here */}
+
+                {/* Faq Section here */}
+                <div>
+                    <Accordion></Accordion>
+                </div>
+                {/* Faq Section here */}
+
+                {/* Testimonials Section */}
+                <div>
+                    <Testimonials></Testimonials>
+                </div>
+                {/* Testimonials Section */}
             </main>
         </div>
     );
