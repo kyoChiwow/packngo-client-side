@@ -8,6 +8,9 @@
 **Delivery Man Password:** Deliveryman1  
 **Live Site URL:** [https://packngo-percel-management.web.app/](https://packngo-percel-management.web.app/)
 
+## Project Description
+PackNGo is a comprehensive parcel management system that streamlines parcel tracking, delivery assignments, and user interactions. It features secure authentication for users and admins, real-time parcel tracking, and an admin dashboard for managing users, parcels, and deliveries. Users can update their profiles, view parcel history, and leave ratings and reviews for delivery personnel. The system also highlights top-performing delivery men based on performance and ratings. Designed with a fully responsive interface, PackNGo ensures a seamless experience across mobile and desktop devices.
+
 ## Features
 
 - **User Authentication**: Secure login and registration system for users and admins.
