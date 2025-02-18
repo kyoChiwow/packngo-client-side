@@ -18,7 +18,7 @@ const testimonials = [
   },
   {
     name: "James Anderson",
-    review: "Best delivery service I have used. Highly recommende!",
+    review: "Best delivery service I have used. Highly recommended!",
     image: "https://randomuser.me/api/portraits/men/3.jpg"
   }
 ];
